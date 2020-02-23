@@ -1,0 +1,193 @@
+#include <iostream>
+#include <windows.h>
+
+
+using namespace std;
+
+class ores{
+public:
+    int price;
+    string _name;
+};
+
+class hero{
+public:
+    int balance;
+};
+class features : public hero{
+public:
+    int balance = 0;
+    int oresGained = 2;
+    int ores_now = 0;
+};
+class equipment : public hero{
+public:
+    string _name;
+    int price;
+    int ores_gained;
+};
+
+class pickaxe : public equipment{
+public:
+    string _name;
+    int price;
+    int ores_gained;
+};
+
+
+int main(){
+    int start;
+    bool _start = true;
+    int go_Back;
+    int mine;
+    int copperNow = 0;
+    const int copperGet = 2;
+    bool _MINE = true;
+    bool MARKET_SELECT = true;
+    int _MARKET_SELECT;
+    int BUY_GEAR;
+
+    string Helm = "Helm\n";
+    string Chestplate = "Chestplate\n";
+    string Legs = "Legs\n";
+    string Boots = "Boots\n";
+
+    pickaxe COPPER_PICKAXE;                 //copper pickaxe creating
+    COPPER_PICKAXE._name = "Copper Pickaxe"; //name
+    COPPER_PICKAXE.price = 1300;            //price
+    COPPER_PICKAXE.ores_gained = 1;         //ores gained with pickaxe
+    pickaxe SILVER_PICKAXE;
+    SILVER_PICKAXE._name = "Silver Pickaxe"; //silver pickaxe
+    SILVER_PICKAXE.price = 2000;             //price
+    SILVER_PICKAXE.ores_gained = 1;          // ores gained
+    pickaxe GOLD_PICKAXE;
+    GOLD_PICKAXE._name = "Gold Pickaxe";     //gold pickaxe
+    GOLD_PICKAXE.price = 3200;               //price
+    GOLD_PICKAXE.ores_gained = 2;            //ores gained
+    features HERO_FEATURES;                  // hero features (balance etc..)
+    HERO_FEATURES.balance = 0;               //balance
+    HERO_FEATURES.oresGained = 2;            //ores gained (later will be higher)
+    HERO_FEATURES.ores_now = 0;              //ores now (inventory)
+    ores COPPER_ORE;                 //declaring copper
+    COPPER_ORE.price = 2;           //--
+    COPPER_ORE._name = "Copper";    //--
+    equipment HELM;
+    HELM._name = "Helm";
+    HELM.price = 800;
+    HELM.ores_gained = 1;
+    equipment CHESTPLATE;
+    CHESTPLATE._name = "Chestplate";
+    CHESTPLATE.price = 1400;
+    CHESTPLATE.ores_gained = 1;
+    equipment LEGS;
+    LEGS._name= "Legs";
+    LEGS.price = 1200;
+    LEGS.ores_gained = 1;
+    equipment BOOTS;
+    BOOTS._name = "Boots";
+    BOOTS.price = 1000;
+    BOOTS.ores_gained = 1;
+
+
+    cout << "Hello, welcome to my improved mining game from before which was using only if and while\nwithout any classes and objects.\nNow I improved it.\n";
+    while(_start != false){
+    cout << "1. Start\n2. Credits\n>";
+    cin >> start;
+    if(start == 112233){
+        HERO_FEATURES.balance += 12345656;
+    }
+    if(start == 1){
+        cout << "You wake up in old house withou money.\nYou need to make money by mining and selling ores.\n";
+        Sleep(1300);
+        while(_MINE != false){
+        cout << "1. Mine\n2. Market\n>";
+        cin >> mine;
+        if(mine == 1){
+            cout << "You are mining...";
+            Sleep(1500);
+            cout << "\n...";
+            Sleep(1000);
+            HERO_FEATURES.ores_now += HERO_FEATURES.oresGained;
+            cout << "You have gained " << HERO_FEATURES.oresGained << " copper and your copper is " << HERO_FEATURES.ores_now << endl << endl;
+        }else if(mine == 2){
+            Sleep(1300);
+            system("CLS");
+            cout << "Welcome on market! You can here sell your ores and buy equipment (gear and pickaxe)\nwhich provides more ore for wearing.\n\n";
+            while(MARKET_SELECT != false){
+            cout << "\n1. Balance\n2. Mine\n3.Sell copper (all)\n4. Gear\n5. Pickaxes\n>";    //shop options
+                cin >> _MARKET_SELECT;
+                if(_MARKET_SELECT == 1){
+                    cout << HERO_FEATURES.balance << "$ ";
+                    Sleep(1600);
+                    system("CLS");
+                }else if(_MARKET_SELECT == 2){      //Mining
+                    cout << "You are mining...";
+                    Sleep(1500);
+                    cout << "\n...\n";
+                    Sleep(1500);
+                    HERO_FEATURES.ores_now += HERO_FEATURES.oresGained;
+                    cout << "You have gained " << HERO_FEATURES.oresGained << " copper and your copper is " << HERO_FEATURES.ores_now << endl;
+                    Sleep(1500);
+                    system("CLS");
+                }else if(_MARKET_SELECT == 3){  //Copper selling
+                    cout << "You have gained " << HERO_FEATURES.ores_now * COPPER_ORE.price << "$ \n";
+                    HERO_FEATURES.balance = HERO_FEATURES.oresGained * COPPER_ORE.price;
+                    HERO_FEATURES.ores_now -= HERO_FEATURES.ores_now;
+                    Sleep(1500);
+                    system("CLS");
+                }else if (_MARKET_SELECT == 4){ //Creating gear shop menu
+                    system("CLS");
+                    cout << "Welcome to the gear shop!\n\n";
+                    cout << "1. " << Helm << "2. " << Chestplate << "3. " << Legs << "4. " << Boots;
+                    cout << ">";
+                    cin >> BUY_GEAR;
+                    if(BUY_GEAR == 1){
+                        if(HERO_FEATURES.balance < HELM.price){     //all about helm
+                            cout << "Not enough money!\n";
+                            Sleep(1500);
+                            system("CLS");
+                            }else if(Helm == "Empty\n"){            //If helm was already bought
+                                cout << "You already bought this!\n";
+                            Sleep(1500);
+                            system("CLS");
+                        }else if(HERO_FEATURES.balance >= HELM.price){  //when helm is bought
+                            cout << "You have successfully bought helm! You now get +" << HELM.ores_gained << " ore per mine.";
+                            Helm = "Empty\n";
+                            HERO_FEATURES.oresGained += HELM.ores_gained;
+                            Sleep(1500);
+                            system("CLS");
+                        }
+                    }else if(BUY_GEAR == 2){
+                        if(HERO_FEATURES.balance < CHESTPLATE.price){   //Chestplate buy
+                            cout << "Not enough money! \n";
+                            Sleep(1500);
+                            system("CLS");
+                        }else if(Chestplate == "Empty\n"){
+                            cout << "You already bought this!";
+                            Sleep(1500);
+                            system("CLS");
+                        }else if(HERO_FEATURES.balance >= CHESTPLATE.price){
+                            cout << "You ave successfully bought chestplate! You now get +" << CHESTPLATE.ores_gained << " ore per mine.";
+                            Chestplate = "Empty\n";
+                            HERO_FEATURES.oresGained += CHESTPLATE.ores_gained;
+                            Sleep(1500);
+                            system("CLS");
+                        }
+                    }
+                }
+            }
+        }else if(mine != 1){
+            cout << "Error\n\n";
+        }
+
+    else if(start == 2){
+        cout << "Full for free (creator: SM)\n";
+        cout << "1. Go back\n";
+        cin >> go_Back;
+        Sleep(1000);
+        system("CLS");
+            }
+        }
+    }
+}
+}
