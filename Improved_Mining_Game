@@ -46,11 +46,17 @@ int main(){
     bool MARKET_SELECT = true;
     int _MARKET_SELECT;
     int BUY_GEAR;
+    int BUY_PICKAXE;
 
     string Helm = "Helm\n";
     string Chestplate = "Chestplate\n";
     string Legs = "Legs\n";
     string Boots = "Boots\n";
+
+    string Copper_pickaxe = "Copper Pickaxe\n";
+    string Silver_pickaxe = "Silver Pickaxe\n";
+    string Gold_pickaxe = "Gold Pickaxe\n";
+
 
     pickaxe COPPER_PICKAXE;                 //copper pickaxe creating
     COPPER_PICKAXE._name = "Copper Pickaxe"; //name
@@ -173,9 +179,95 @@ int main(){
                             Sleep(1500);
                             system("CLS");
                         }
+                    }else if(BUY_GEAR == 3){
+                        if(HERO_FEATURES.balance < LEGS.balance){
+                            cout << "Not enough money!\n";
+                            Sleep(1500);
+                            system("CLS");
+                        }else if(Legs == "Empty\n"){
+                            cout << "You have already bought this!\n";
+                            Sleep(1500);
+                            system("CLS");
+                        }else if(HERO_FEATURES.balance >= LEGS.price){
+                            cout << "You have successfully bought legs! Now you get +" << LEGS.ores_gained << " ore per mine.";
+                            Legs = "Empty\n";
+                            HERO_FEATURES.oresGained += LEGS.ores_gained;
+                            Sleep(1500);
+                            system("CLS");
+                        }
+                    }else if(BUY_GEAR == 4){
+                        if(HERO_FEATURES.balance < LEGS.price){
+                            cout << "Not enough money!\n";
+                            Sleep(1500);
+                            system("CLS");
+                        }else if(Boots == "Empty\n"){
+                            cout << "You have already bought this!\n";
+                            Sleep(1500);
+                            system("CLS");
+                        }else if(HERO_FEATURES.balance >= BOOTS.price){
+                            cout << "You have successfully bought boots! Now you get +" << BOOTS.ores_gained << " ore per mine.";
+                            Boots = "Empty\n";
+                            HERO_FEATURES.oresGained += BOOTS.ores_gained;
+                            Sleep(1500);
+                            system("CLS");
+                        }
+                    }
+                }else if(_MARKET_SELECT == 5){
+                    system("CLS");
+                    cout << "Welcome to the pickaxe shop!\n\n";
+                    cout << "1. " << Copper_pickaxe << "2. " << Silver_pickaxe << "3. " << Gold_pickaxe;
+                    cin >> BUY_PICKAXE;
+                    if(BUY_PICKAXE == 1){
+                        if(HERO_FEATURES.balance < COPPER_PICKAXE.price){
+                            cout << "Not enough money!\n";
+                            Sleep(1500);
+                            system("CLS");
+                    }else if(Copper_pickaxe == "Empty\n"){
+                        cout << "You've already bought this!";
+                        Sleep(1500);
+                        system("CLS");
+                    }else if(HERO_FEATURES.balance >= COPPER_PICKAXE.price){
+                        cout << "You have successfully bought pickaxe! You will now get +" << COPPER_PICKAXE.ores_gained << " ore per mine.";
+                        HERO_FEATURES.oresGained += COPPER_PICKAXE.ores_gained;
+                        Copper_pickaxe = "Empty\n";
+                        Sleep(1500);
+                        system("CLS");
+                    }
+                }else if(BUY_PICKAXE == 2){
+                    if(HERO_FEATURES.balance < SILVER_PICKAXE.price){
+                        cout << "Not enough money!\n";
+                        Sleep(1500);
+                        system("CLS");
+                    }else if(Silver_pickaxe == "Empty\n"){
+                        cout << "You have already bought this!";
+                        Sleep(1500);
+                        system("CLS");
+                    }else if(HERO_FEATURES.balance >= SILVER_PICKAXE.price){
+                        cout << "You have successfully bought silver pickaxe! You now get +" << SILVER_PICKAXE.ores_gained << " ore per mine.";
+                        HERO_FEATURES.oresGained += SILVER_PICKAXE.ores_gained;
+                        Silver_pickaxe = "Empty\n";
+                        Sleep(1500);
+                        system("CLS");
+                    }
+                }else if(BUY_PICKAXE == 3){
+                    if(HERO_FEATURES.balance < GOLD_PICKAXE.price){
+                        cout << "Not enough money!";
+                        Sleep(1500);
+                        system("CLS");
+                    }else if(Gold_pickaxe == "Empty\n"){
+                        cout << "You already bought this!";
+                        Sleep(1500);
+                        system("CLS");
+                    }else if(HERO_FEATURES.balance >= GOLD_PICKAXE.price){
+                        cout << "You have successfully bought golden pickaxe! You now get +" << GOLD_PICKAXE.ores_gained << " ore per mine.";
+                        HERO_FEATURES.oresGained += GOLD_PICKAXE.ores_gained;
+                        Gold_pickaxe = "Empty\n";
+                        Sleep(1500);
+                        system("CLS");
                     }
                 }
             }
+        }
         }else if(mine != 1){
             cout << "Error\n\n";
         }
