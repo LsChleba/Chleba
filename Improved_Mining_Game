@@ -8,6 +8,7 @@ class ores{
 public:
     int price;
     string _name;
+    int ores_gained;
 };
 
 class hero{
@@ -47,6 +48,7 @@ int main(){
     int _MARKET_SELECT;
     int BUY_GEAR;
     int BUY_PICKAXE;
+    int ORE_UPGRADE;
 
     string Helm = "Helm\n";
     string Chestplate = "Chestplate\n";
@@ -93,7 +95,14 @@ int main(){
     BOOTS._name = "Boots";
     BOOTS.price = 1000;
     BOOTS.ores_gained = 1;
-
+    ores SILVER_ORE;
+    SILVER_ORE._name = "Silver Ore";
+    SILVER_ORE.price = 3;
+    SILVER_ORE.ores_gained = 2;
+    ores GOLD_ORE;
+    GOLD_ORE._name = "Gold Ore";
+    GOLD_ORE.price = 5;
+    GOLD_ORE.ores_gained = 4;
 
     cout << "Hello, welcome to my improved mining game from before which was using only if and while\nwithout any classes and objects.\nNow I improved it.\n";
     while(_start != false){
@@ -120,7 +129,7 @@ int main(){
             system("CLS");
             cout << "Welcome on market! You can here sell your ores and buy equipment (gear and pickaxe)\nwhich provides more ore for wearing.\n\n";
             while(MARKET_SELECT != false){
-            cout << "\n1. Balance\n2. Mine\n3.Sell copper (all)\n4. Gear\n5. Pickaxes\n>";    //shop options
+            cout << "\n1. Balance\n2. Mine\n3.Sell copper (all)\n4. Gear\n5. Pickaxes\n6. Mined Ore Upgrade\n>";    //shop options
                 cin >> _MARKET_SELECT;
                 if(_MARKET_SELECT == 1){
                     cout << HERO_FEATURES.balance << "$ ";
@@ -137,7 +146,7 @@ int main(){
                     system("CLS");
                 }else if(_MARKET_SELECT == 3){  //Copper selling
                     cout << "You have gained " << HERO_FEATURES.ores_now * COPPER_ORE.price << "$ \n";
-                    HERO_FEATURES.balance = HERO_FEATURES.oresGained * COPPER_ORE.price;
+                    HERO_FEATURES.balance = HERO_FEATURES.ores_now * COPPER_ORE.price + HERO_FEATURES.balance;
                     HERO_FEATURES.ores_now -= HERO_FEATURES.ores_now;
                     Sleep(1500);
                     system("CLS");
@@ -262,6 +271,44 @@ int main(){
                         cout << "You have successfully bought golden pickaxe! You now get +" << GOLD_PICKAXE.ores_gained << " ore per mine.";
                         HERO_FEATURES.oresGained += GOLD_PICKAXE.ores_gained;
                         Gold_pickaxe = "Empty\n";
+                        Sleep(1500);
+                        system("CLS");
+                    }
+                }
+            }else if(_MARKET_SELECT == 6){
+                system("CLS");                          //ore upgrade
+                cout << "Welcome to ore upgrader!\n\n";
+                cout << "1. " << SILVER_ORE._name << endl << "2. " << GOLD_ORE._name << endl << "Silver Cost: 2300\n" << "Gold cost: 5000\n";
+                cin >> ORE_UPGRADE;
+                if(ORE_UPGRADE == 1){
+                    if(HERO_FEATURES.balance < 2300){
+                        cout << "Not enough money!";
+                        Sleep(1500);
+                        system("CLS");
+                    }else if(SILVER_ORE._name == "Empty"){
+                        cout << "You already bought this!";
+                        Sleep(1500);
+                        system("CLS");
+                    }else if(HERO_FEATURES.balance >= 2300){
+                        cout << "You successfully upgraded your mined ore! Now you get +" << SILVER_ORE.ores_gained << " ore mined per mine.";
+                        HERO_FEATURES.oresGained += SILVER_ORE.ores_gained;
+                        SILVER_ORE._name = "Empty";
+                        Sleep(1500);
+                        system("CLS");
+                    }
+                }else if(ORE_UPGRADE == 2){
+                    if(HERO_FEATURES.balance < 5000){
+                        cout << "Not enough money!";
+                        Sleep(1500);
+                        system("CLS");
+                    }else if(GOLD_ORE._name == "Empty"){
+                        cout << "You already bought this!";
+                        Sleep(1500);
+                        system("CLS");
+                    }else if(HERO_FEATURES.balance >= 5000){
+                        cout << "You successfully bought your mined ore! Now you get +" << GOLD_ORE.ores_gained << " ore mined per mine.";
+                        HERO_FEATURES.oresGained += GOLD_ORE.ores_gained;
+                        GOLD_ORE._name = "Empty";
                         Sleep(1500);
                         system("CLS");
                     }
